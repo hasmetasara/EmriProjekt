@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Librat | Libraria HORIZONT</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">📚 Libraria HORIZONT</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Kreu</a></li>
+          <li class="nav-item"><a class="nav-link active" href="books.html">Librat</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">Rreth Nesh</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Kontakt</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Librat -->
+  <div class="container py-5">
+    <h2 class="text-center mb-4 text-uppercase">Katalogu i Librave Shqiptarë</h2>
+    <div id="bookList" class="row g-4"></div>
+  </div>
+
+  <!-- Modal për Blerje -->
+  <div class="modal fade" id="buyModal" tabindex="-1" aria-labelledby="buyModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="buyModalLabel">Bli Librin</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="purchaseForm">
+            <div class="mb-3">
+              <label class="form-label">Titulli i librit</label>
+              <input type="text" class="form-control" id="bookTitle" readonly>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Emër dhe Mbiemër</label>
+              <input type="text" class="form-control" id="customerName" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Numër Telefoni</label>
+              <input type="tel" class="form-control" id="customerPhone" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Adresa</label>
+              <input type="text" class="form-control" id="customerAddress" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Mënyra e Pagesës</label>
+              <select class="form-select" id="paymentMethod" required>
+                <option value="">Zgjidh mënyrën e pagesës</option>
+                <option value="Kartë">Kartë</option>
+                <option value="Cash">Cash</option>
+                <option value="PayPal">PayPal</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Monedha</label>
+              <select class="form-select" id="currency" required>
+                <option value="">Zgjidh monedhën</option>
+                <option value="Lek">Lek</option>
+                <option value="Euro">Euro</option>
+                <option value="Paund">Paund</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anulo</button>
+          <button type="button" class="btn btn-primary" id="confirmPurchase">Konfirmo Blerjen</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-light text-center py-3">
+    <p>&copy; 2025 Libraria HORIZONT | Të gjitha të drejtat e rezervuara</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const books = [
+      {title: 'Dasma', author: 'Ismail Kadare', img: 'images/dasma-lekura-e-daulles-kadare.jpg'},
+      {title: 'Lekura e daulles', author: 'Ismail Kadare', img: 'images/dasma-lekura-e-daulles-ismail-kadare.jpg'},
+      {title: 'E penguara', author: 'Ismail Kadare', img: 'images/e penguara ismail kadare.jpeg'},
+      {title: 'Gjenerali i ushtrisë së vdekur', author: 'Ismail Kadare', img: 'images/gjenerali-i-ushtrise-se-vdekur-ismail-kadare.jpg'},
+      {title: 'I humburi', author: 'Fatos Kongoli', img: 'images/i humburi.jpeg'},
+      {title: 'Kështjella', author: 'Ismail Kadare', img: 'images/keshtjella-ismail-kadare.jpg'},
+      {title: 'Kronikë në gur', author: 'Ismail Kadare', img: 'images/kronike ne gur.jpg'},
+      {title: 'Loja, shembja e qiellit', author: 'Fatos Kongoli', img: 'images/loja-shembja-e-qiellit.jpg'},
+      {title: 'Luli i vocërr', author: 'Migjeni', img: 'images/luli i vocerr.jpeg'},
+      {title: 'Motra e humbur', author: 'Sterjo Spasse', img: 'images/Motra e humbur.jpg'},
+      {title: 'Nëntori i një kryeqyteti', author: 'Petraq Zoto', img: 'images/nentori-i-nje-kryeqyteti-ismail-kadare.jpg'},
+      {title: 'Net pa gjumë', author: 'Lasgush Poradeci', img: 'images/net pa gjume.jpg'},
+      {title: 'Një grua nga Tirana', author: 'Teodor Keko', img: 'images/nje grua nga tirana.jpeg'},
+      {title: 'Njeriu me top', author: 'Ismail Kadare', img: 'images/njeriu-me-top.jpg'},
+      {title: 'Përralla nga e kaluara', author: 'Mitrush Kuteli', img: 'images/perralla nga e kaluara.jpg'},
+      {title: 'Prilli i thyer', author: 'Ismail Kadare', img: 'images/prilli-i-thyer-ismail-kadare.jpg'},
+      {title: 'Sikur të isha djalë', author: 'Musine Kokalari', img: 'images/sikur-te-isha-djale.jpg'},
+      {title: 'Pse', author: 'Sterjo Spasse', img: 'images/Sterjo Spase pse.jpeg'},
+      {title: 'Vajzat me kordele të kuqe', author: 'Dritëro Agolli', img: 'images/vajzat me kordele te kuqe.jpg'},
+    ];
+
+    const bookList = document.getElementById('bookList');
+
+    books.forEach(book => {
+      const col = document.createElement('div');
+      col.className = 'col-md-3 col-sm-6';
+      col.innerHTML = `
+        <div class="card h-100 text-center shadow-sm border-0 rounded-3">
+          <img src="${book.img || 'images/default-book.jpg'}" class="card-img-top" alt="${book.title}">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">${book.title}</h5>
+            <p class="card-text text-muted">${book.author}</p>
+            <button class="btn btn-outline-primary mt-auto buy-btn" data-title="${book.title}" data-bs-toggle="modal" data-bs-target="#buyModal">Bli Tani</button>
+          </div>
+        </div>`;
+      bookList.appendChild(col);
+    });
+
+    // Shto titullin e librit në modal
+    const bookTitleInput = document.getElementById('bookTitle');
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('buy-btn')) {
+        const title = e.target.getAttribute('data-title');
+        bookTitleInput.value = title;
+      }
+    });
+
+    // Konfirmo blerjen
+    document.getElementById('confirmPurchase').addEventListener('click', function() {
+      const name = document.getElementById('customerName').value;
+      const phone = document.getElementById('customerPhone').value;
+      const address = document.getElementById('customerAddress').value;
+      const payment = document.getElementById('paymentMethod').value;
+      const currency = document.getElementById('currency').value;
+      const title = document.getElementById('bookTitle').value;
+
+      if(!name || !phone || !address || !payment || !currency) {
+        alert('Ju lutem plotësoni të gjitha fushat!');
+        return;
+      }
+
+      alert(`Blerja e librit "${title}" u krye me sukses!\n\nDetajet e blerësit:\nEmër: ${name}\nTelefon: ${phone}\nAdresa: ${address}\nPagesa: ${payment}\nMonedha: ${currency}`);
+      // Reset formi
+      document.getElementById('purchaseForm').reset();
+      // Mbyll modal
+      const modalEl = document.getElementById('buyModal');
+      const modal = bootstrap.Modal.getInstance(modalEl);
+      modal.hide();
+    });
+  </script>
+</body>
+</html>

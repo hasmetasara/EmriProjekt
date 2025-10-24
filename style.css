@@ -1,0 +1,33 @@
+body {
+  padding-top: 70px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.hero {
+  background: url('images/library-bg.jpg') center/cover no-repeat;
+  height: 90vh;
+}
+
+.book-card {
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.book-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.btn-primary {
+  background-color: #0077ff;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #005fcc;
+}
