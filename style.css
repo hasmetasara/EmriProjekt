@@ -1,10 +1,9 @@
 body {
-  padding-top: 70px;
   font-family: 'Segoe UI', sans-serif;
 }
 
 .hero {
-  background: url('images/library-bg.jpg') center/cover no-repeat;
+  background: url('images/A\ Book\ Late\ Night.jpeg') center/cover no-repeat;
   height: 90vh;
 }
 
@@ -30,4 +29,8 @@ footer {
 
 .btn-primary:hover {
   background-color: #005fcc;
+}
+.card img{
+  width: 200px;
+  height: 300px;
 }
